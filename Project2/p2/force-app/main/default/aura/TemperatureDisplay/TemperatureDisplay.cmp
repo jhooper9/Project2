@@ -1,0 +1,18 @@
+<aura:component controller="TemperatureDisplayController">
+    <aura:attribute type="Decimal" name="temp" default="-.-"/>
+    <aura:attribute type="String" name="city" default="any city in the US"/>
+    <lightning:card class="slds-text-heading_small slds-card_boundary " title="tempBox">
+        <div class="slds-m-horizontal--medium">
+            <div class="slds-m-vertical--small">
+                <lightning:input value="{!v.city}" label="US City"/>
+                <p class="slds-text-body--regular">Current Temperature
+                    <lightning:formattedNumber value="{!v.temp}" title="Current Temperature"
+                                               class="slds-m-bottom--large"
+                                               maximumFractionDigits="1"/>
+                    °F
+                </p>
+            </div>
+            <lightning:button onclick="{!c.retrieveTemp}" label="Submit" variant="brand"/>
+        </div>
+    </lightning:card>
+</aura:component>
