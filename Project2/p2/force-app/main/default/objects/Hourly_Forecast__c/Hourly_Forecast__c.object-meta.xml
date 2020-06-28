@@ -143,24 +143,23 @@
     <allowInChatterGroups>false</allowInChatterGroups>
     <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
     <deploymentStatus>Deployed</deploymentStatus>
-    <description>This object holds all of the information retrieved by a call to the weather API</description>
     <enableActivities>false</enableActivities>
     <enableBulkApi>true</enableBulkApi>
     <enableFeeds>false</enableFeeds>
     <enableHistory>false</enableHistory>
     <enableLicensing>false</enableLicensing>
     <enableReports>true</enableReports>
-    <enableSearch>true</enableSearch>
+    <enableSearch>false</enableSearch>
     <enableSharing>true</enableSharing>
     <enableStreamingApi>true</enableStreamingApi>
     <externalSharingModel>ControlledByParent</externalSharingModel>
-    <label>Forecast Entry</label>
+    <label>24 Hour Forecast</label>
     <nameField>
-        <displayFormat>FC-{0000000000}</displayFormat>
-        <label>Forecast Entry Name</label>
+        <displayFormat>24HF-{0000000000}</displayFormat>
+        <label>24 Hour Forecast Name</label>
         <type>AutoNumber</type>
     </nameField>
-    <pluralLabel>Forecast</pluralLabel>
+    <pluralLabel>24 Hour Forecasts</pluralLabel>
     <searchLayouts/>
     <sharingModel>ControlledByParent</sharingModel>
     <visibility>Public</visibility>
