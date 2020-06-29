@@ -11,7 +11,7 @@ public class WeatherCallout {
     }
     public static void fetchCurrentData(String city, String state, String country, Boolean metric){
         if(city.containsWhitespace()) {city = city.replace(' ', '%20');}
-        //System.debug(city);
+        System.debug(city+' ' +state+ ' '+country);
         String units = '';
         if(metric) {units='unitGroup=metric';}
         else {units='unitGroup=us';}
@@ -25,7 +25,7 @@ public class WeatherCallout {
         Set<Date> activeDates = new Set<Date>();
         //The API says that it returns 7 days, but the loop here only gives back 6
         //Playing it safe and adding a 7th one manually, besides, it's a set so if it's in there it doesn't matter
-        activeDates.add(Date.today().addDays(6));
+        //activeDates.add(Date.today().addDays(6));
         for(WeatherDataResponse.HourlyCondition h : wdResponse.locations.city.values){
             activeDates.add(Utilities.cleanDateTime(h.datetimeStr).date());
         }

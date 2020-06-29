@@ -1,0 +1,10 @@
+<aura:component >
+    <aura:registerEvent name="TempDataRetriever" type="c:WeatherArray"/>
+    <aura:attribute type="String" name="city" default="City"/>
+    <aura:attribute type="String" name="state" default="State"/>
+    <aura:attribute type="String" name="country" default="Country"/>
+    <lightning:input value="{!v.city}" label="City: "/>
+    <lightning:input value="{!v.state}" label="State: "/>
+    <lightning:input value="{!v.country}" label="Country: "/>
+    <lightning:button onclick="{!c.retrieveTemp}" label="Submit" variant="brand"/>
+</aura:component>

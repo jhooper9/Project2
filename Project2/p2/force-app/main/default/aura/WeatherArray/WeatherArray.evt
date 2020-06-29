@@ -1,0 +1,4 @@
+<aura:event type="COMPONENT" description="Brings up the array value">
+    <aura:attribute name="currentWeather" type="Current_Weather__c"/>
+    <aura:attribute name="forecastEntries" type="Forecast_Entry__c[]"/>
+</aura:event>
