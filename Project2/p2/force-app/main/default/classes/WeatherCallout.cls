@@ -11,7 +11,7 @@ public class WeatherCallout {
     }
     public static void fetchCurrentData(String city, String state, String country, Boolean metric){
         if(city.containsWhitespace()) {city = city.replace(' ', '%20');}
-        System.debug(city);
+        //System.debug(city);
         String units = '';
         if(metric) {units='unitGroup=metric';}
         else {units='unitGroup=us';}
@@ -21,39 +21,45 @@ public class WeatherCallout {
         HttpResponse response =callSetup(inputString);
         String stringToReplace = city+','+state+','+country;
         String adjustedResponse = (response.getBody()).replaceAll(stringToReplace, 'city');
-        testResponse wdResponse = (testResponse)JSON.deserialize(adjustedResponse, testResponse.class);
-        System.debug(wdResponse.locations.city.values[0].humidity);
-        /*
+        WeatherDataResponse wdResponse = (WeatherDataResponse)JSON.deserialize(adjustedResponse, WeatherDataResponse.class);
         Set<Date> activeDates = new Set<Date>();
-        for(CurrentConditions c : wdResponse.valuesList){
-            activeDates.add(c.datetimeStr.date());
+        //The API says that it returns 7 days, but the loop here only gives back 6
+        //Playing it safe and adding a 7th one manually, besides, it's a set so if it's in there it doesn't matter
+        activeDates.add(Date.today().addDays(6));
+        for(WeatherDataResponse.HourlyCondition h : wdResponse.locations.city.values){
+            activeDates.add(Utilities.cleanDateTime(h.datetimeStr).date());
         }
-        List<Hourly_Forecast__c> existingForecasts = [SELECT Id FROM Hourly_Forecast__c WHERE
+        List<Hourly_Forecast__c> existingForecasts = [SELECT Id,Location__r.Id FROM Hourly_Forecast__c WHERE
                                                       Date__c IN :activeDates AND
-                                                      Location__r.Name=:wdResponse.address];
-        //I don't want to preserve the old forecast entries, and a cascading delete is the easiest way to get rid of them
-        DELETE existingForecasts;
+                                                      Location__r.Name=:wdResponse.locations.city.address];
         Hourly_Forecast__c currentForecast;
+        Location__c newLoc;
         List<Forecast_Entry__c> forecastEntries = new List<Forecast_Entry__c>();
-        List<Hourly_Forecast__c> dailyForecasts = new List<Hourly_Forecast__c>();
         if(existingForecasts.size()!=0) {
-            currentForecast = new Hourly_Forecast__c(Location__c=existingForecasts[0].Location__r.Id);
+            newLoc = existingForecasts[0].Location__r;
         } else {
-            Location__c newLoc= new Location__c(Name=wdResponse.address);
-            currentForecast = new Hourly_Forecast__c(Location__c=newLoc.Id);
+            newLoc= new Location__c(Name=wdResponse.locations.city.address);
             INSERT newLoc;
         }
-        dailyForecasts.add(currentForecast);
-        for(CurrentConditions c : wdResponse.valuesList) {
-            if(c.datetimeStr.date()!=currentForecast.date__c) {
-                currentForecast = new Hourly_Forecast__c(date__c=c.datetimeStr.date(),Location__c=currentForecast.Location__r.Id);
-		        dailyForecasts.add(currentForecast);
-            }
-            forecastEntries.add(c.convertToEntry(currentForecast));
+        currentForecast = new Hourly_Forecast__c(Location__c=newLoc.Id, Date__c=Date.today());
+        //I don't want to preserve the old forecast entries, and a cascading delete is the easiest way to get rid of them
+        DELETE existingForecasts;
+        UPSERT currentForecast;
+        Map<Date,Hourly_Forecast__c> availableForecasts = new Map<Date,Hourly_Forecast__c>();
+        for(Integer i=1;i<7;i++){
+            availableForecasts.put(Date.today().addDays(i),new Hourly_Forecast__c(Location__c=newLoc.Id, Date__c=Date.today().addDays(i)));
         }
-        INSERT dailyForecasts;
-        INSERT foreCastEntries;*/
-
+        availableForecasts.put(currentForecast.Date__c,currentForecast);
+        UPSERT availableForecasts.values();
+        INSERT Utilities.convertToCurrentWeather(currentForecast,wdResponse.locations.city.currentConditions);
+        for(WeatherDataResponse.HourlyCondition h : wdResponse.locations.city.values) {
+            DateTime hoursDateTime = Utilities.cleanDateTime(h.datetimeStr);
+            if(hoursDateTime.date()!=currentForecast.date__c) {
+                currentForecast = availableForecasts.get(hoursDateTime.date());
+            }
+            forecastEntries.add(Utilities.convertToEntry(currentForecast,h));
+        }
+        INSERT foreCastEntries;
 
 
         //return forecastEntries[0].id;

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Hourly_Forecast__c</fullName>
+    <externalId>false</externalId>
+    <label>24 Hour Forecast</label>
+    <referenceTo>Hourly_Forecast__c</referenceTo>
+    <relationshipLabel>Current Weather</relationshipLabel>
+    <relationshipName>Current_Weather</relationshipName>
+    <relationshipOrder>0</relationshipOrder>
+    <reparentableMasterDetail>false</reparentableMasterDetail>
+    <trackTrending>false</trackTrending>
+    <type>MasterDetail</type>
+    <writeRequiresMasterRead>false</writeRequiresMasterRead>
+</CustomField>

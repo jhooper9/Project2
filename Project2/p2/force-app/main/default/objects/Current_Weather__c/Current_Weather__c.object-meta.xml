@@ -144,22 +144,22 @@
     <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
     <deploymentStatus>Deployed</deploymentStatus>
     <enableActivities>false</enableActivities>
-    <enableBulkApi>true</enableBulkApi>
+    <enableBulkApi>false</enableBulkApi>
     <enableFeeds>false</enableFeeds>
     <enableHistory>false</enableHistory>
     <enableLicensing>false</enableLicensing>
     <enableReports>true</enableReports>
     <enableSearch>true</enableSearch>
-    <enableSharing>true</enableSharing>
-    <enableStreamingApi>true</enableStreamingApi>
+    <enableSharing>false</enableSharing>
+    <enableStreamingApi>false</enableStreamingApi>
     <externalSharingModel>ControlledByParent</externalSharingModel>
-    <label>24 Hour Forecast</label>
+    <label>Current Weather</label>
     <nameField>
-        <displayFormat>24HF-{0000000000}</displayFormat>
-        <label>24 Hour Forecast Name</label>
+        <displayFormat>CW-{0000000000}</displayFormat>
+        <label>Current Weather Name</label>
         <type>AutoNumber</type>
     </nameField>
-    <pluralLabel>24 Hour Forecasts</pluralLabel>
+    <pluralLabel>Current Weather</pluralLabel>
     <searchLayouts/>
     <sharingModel>ControlledByParent</sharingModel>
     <visibility>Public</visibility>

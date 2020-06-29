@@ -3,7 +3,7 @@
     <fullName>Feels_Like__c</fullName>
     <externalId>false</externalId>
     <label>Feels Like</label>
-    <precision>5</precision>
+    <precision>4</precision>
     <required>false</required>
     <scale>1</scale>
     <trackTrending>false</trackTrending>
