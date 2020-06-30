@@ -2,6 +2,8 @@
 <aura:component controller="TemperatureDisplayController"
                 implements="forceCommunity:availableForAllPageTypes"
                 access="global">
-    <c:CurrentWeatherSummaryCard/>
+    <aura:attribute name="nextFewDays" type="String[]"/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <c:CurrentWeatherSummaryCard nextFewDays="{!v.nextFewDays}" />
 	
 </aura:component>

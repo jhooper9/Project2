@@ -2,7 +2,10 @@ public class LocationSearchController {
     
 	@auraEnabled
     public static Hourly_Forecast__c[] getAllHourlies(String city,String state,String country){
-        //WeatherCallout.fetchCurrentData(city,state,country,false);
+        System.debug(city);
+        System.debug(state);
+        System.debug(country);
+        WeatherCallout.fetchCurrentData(city,state,country,false);
         
         //This is... a bit of a beast. It's mostly just because I have long field names though.
         //It's just a query for the 24 forecasts and all of their details including their related children.

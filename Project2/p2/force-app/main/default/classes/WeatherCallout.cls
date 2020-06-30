@@ -11,6 +11,8 @@ public class WeatherCallout {
     }
     public static void fetchCurrentData(String city, String state, String country, Boolean metric){
         if(city.containsWhitespace()) {city = city.replace(' ', '%20');}
+        if(state.containsWhitespace()) {state = state.replace(' ', '%20');}
+        if(country.containsWhitespace()) {country = country.replace(' ', '%20');}
         System.debug(city+' ' +state+ ' '+country);
         String units = '';
         if(metric) {units='unitGroup=metric';}
@@ -46,7 +48,7 @@ public class WeatherCallout {
         DELETE existingForecasts;
         UPSERT currentForecast;
         Map<Date,Hourly_Forecast__c> availableForecasts = new Map<Date,Hourly_Forecast__c>();
-        for(Integer i=1;i<6;i++){
+        for(Integer i=1;i<7;i++){
             availableForecasts.put(Date.today().addDays(i),new Hourly_Forecast__c(Location__c=newLoc.Id, Date__c=Date.today().addDays(i)));
         }
         availableForecasts.put(currentForecast.Date__c,currentForecast);

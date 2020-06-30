@@ -1,33 +1,71 @@
 <aura:component >
     <c:LocationSearch/>
     <aura:handler name="hourlyRetrieverEvent" event="c:WeatherArray" action="{!c.handleHourlies}"/>
-	<ltng:require scripts="{!$Resource.Chart}"/>
+    <ltng:require scripts="{!$Resource.Chart}"/>
     <!-- afterScriptsLoaded="{!c.ctr}"-->
+    <aura:attribute name="nextFewDays" type="String[]"/>
     <aura:attribute name="todayp0" type="Hourly_Forecast__c"/>
     <aura:attribute name="todayp1" type="Hourly_Forecast__c"/>
     <aura:attribute name="todayp2" type="Hourly_Forecast__c"/>
     <aura:attribute name="todayp3" type="Hourly_Forecast__c"/>
     <aura:attribute name="todayp4" type="Hourly_Forecast__c"/>
     <aura:attribute name="todayp5" type="Hourly_Forecast__c"/>
-    <lightning:badge label="High of"/>{!v.todayp0.Temperature_High__c}
-    
-    
-    
-    <lightning:tabset>
-        <lightning:tab label="Today" id="zero" onactive="{!c.day0}">
-        </lightning:tab>
-        <lightning:tab label="Tomorrow" id="one" onactive="{!c.day1}">
-        </lightning:tab>
-        <lightning:tab label="Item Three" id="three">
-            Three Content !
-        </lightning:tab>
-    </lightning:tabset>
-            <div class="slds-col slds-size--1-of-1 slds-small-size--1-of-2 slds-medium-size--3-of-4">
-                <canvas aura:id="lineChart" id="lineChart"/>
-            </div>
-    
-<!--	 <aura:iteration items="1,2,3,4,5" var="item">
-        <meter value="{!item / 5}"/><br/>
-    </aura:iteration>
--->
+    <div class="c-container">
+        <lightning:layout multipleRows="true">
+            <lightning:layoutItem padding="around-small" size="12">
+                <div class="page-section page-header">
+                    <h2>Header</h2>
+                </div>
+            </lightning:layoutItem>
+            <lightning:layoutItem padding="around-small" size="12">
+                <lightning:layout>
+                    <lightning:layoutItem padding="around-small" size="3">
+                        <div class="page-section page-right">
+                            <aura:renderIf isTrue="{!v.todayp0}">
+                                <h2>Today's Forecast</h2>
+                                <lightning:badge label="Date"/>{!v.todayp0.Date__c}<br/>
+                                <!--<lightning:badge label="Location"/>{!v.todayp0.Location__c}<br/>-->
+                                <lightning:badge label="High of"/>{!v.todayp0.Temperature_High__c}
+                                <lightning:badge label="Low of"/>{!v.todayp0.Temperature_Low__c}<br/>
+                                <lightning:badge label="Sunrise"/>{!v.todayp0.Sunrise__c}
+                                <lightning:badge label="Sunset"/>{!v.todayp0.Sunset__c}
+                            </aura:renderIf>
+                        </div>
+                    </lightning:layoutItem>
+                    <lightning:layoutItem padding="around-small" size="6">
+                        <div class="page-section page-main">
+                            <h2>Main</h2>
+                            <div class="slds-col slds-size--1-of-1 slds-small-size--1-of-2 slds-medium-size--3-of-4">
+                                <canvas aura:id="lineChart" id="lineChart"/>
+                            </div>
+                        </div>
+                    </lightning:layoutItem>
+                    <lightning:layoutItem padding="around-small" size="3">
+                        <div class="page-section page-right">
+                            <h2>Right Sidebar</h2>
+                            <lightning:tabset selectedTabId="zero" class="slds-tabs_large" variant="vertical">
+                                <lightning:tab label="{!v.nextFewDays[0]}" id="zero" onactive="{!c.day0}">
+                                </lightning:tab>
+                                <lightning:tab label="{!v.nextFewDays[1]}" id="one" onactive="{!c.day1}">
+                                </lightning:tab>
+                                <lightning:tab label="{!v.nextFewDays[2]}" id="two" onactive="{!c.day2}">
+                                </lightning:tab>
+                                <lightning:tab label="{!v.nextFewDays[3]}" id="three" onactive="{!c.day3}">
+                                </lightning:tab>
+                                <lightning:tab label="{!v.nextFewDays[4]}" id="four" onactive="{!c.day4}">
+                                </lightning:tab>
+                                <lightning:tab label="{!v.nextFewDays[5]}" id="five" onactive="{!c.day5}">
+                                </lightning:tab>
+                            </lightning:tabset>
+                        </div>
+                    </lightning:layoutItem>
+                </lightning:layout>
+            </lightning:layoutItem>
+            <lightning:layoutItem flexibility="auto" padding="around-small" size="12">
+                <div class="page-footer page-section">
+                    <h2>Footer</h2>
+                </div>
+            </lightning:layoutItem>
+        </lightning:layout>
+    </div>
 </aura:component>
