@@ -1,0 +1,7 @@
+<!--This is where all of the little components will go to live-->
+<aura:component controller="TemperatureDisplayController"
+                implements="forceCommunity:availableForAllPageTypes"
+                access="global">
+    <c:CurrentWeatherSummaryCard/>
+	
+</aura:component>

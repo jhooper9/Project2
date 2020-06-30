@@ -1,3 +1,33 @@
 <aura:component >
-    <c:LocationSearchComponent />
+    <c:LocationSearch/>
+    <aura:handler name="hourlyRetrieverEvent" event="c:WeatherArray" action="{!c.handleHourlies}"/>
+	<ltng:require scripts="{!$Resource.Chart}"/>
+    <!-- afterScriptsLoaded="{!c.ctr}"-->
+    <aura:attribute name="todayp0" type="Hourly_Forecast__c"/>
+    <aura:attribute name="todayp1" type="Hourly_Forecast__c"/>
+    <aura:attribute name="todayp2" type="Hourly_Forecast__c"/>
+    <aura:attribute name="todayp3" type="Hourly_Forecast__c"/>
+    <aura:attribute name="todayp4" type="Hourly_Forecast__c"/>
+    <aura:attribute name="todayp5" type="Hourly_Forecast__c"/>
+    <lightning:badge label="High of"/>{!v.todayp0.Temperature_High__c}
+    
+    
+    
+    <lightning:tabset>
+        <lightning:tab label="Today" id="zero" onactive="{!c.day0}">
+        </lightning:tab>
+        <lightning:tab label="Tomorrow" id="one" onactive="{!c.day1}">
+        </lightning:tab>
+        <lightning:tab label="Item Three" id="three">
+            Three Content !
+        </lightning:tab>
+    </lightning:tabset>
+            <div class="slds-col slds-size--1-of-1 slds-small-size--1-of-2 slds-medium-size--3-of-4">
+                <canvas aura:id="lineChart" id="lineChart"/>
+            </div>
+    
+<!--	 <aura:iteration items="1,2,3,4,5" var="item">
+        <meter value="{!item / 5}"/><br/>
+    </aura:iteration>
+-->
 </aura:component>

@@ -46,7 +46,7 @@ public class WeatherCallout {
         DELETE existingForecasts;
         UPSERT currentForecast;
         Map<Date,Hourly_Forecast__c> availableForecasts = new Map<Date,Hourly_Forecast__c>();
-        for(Integer i=1;i<7;i++){
+        for(Integer i=1;i<6;i++){
             availableForecasts.put(Date.today().addDays(i),new Hourly_Forecast__c(Location__c=newLoc.Id, Date__c=Date.today().addDays(i)));
         }
         availableForecasts.put(currentForecast.Date__c,currentForecast);

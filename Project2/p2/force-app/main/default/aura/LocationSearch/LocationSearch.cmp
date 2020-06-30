@@ -1,5 +1,5 @@
-<aura:component >
-    <aura:registerEvent name="TempDataRetriever" type="c:WeatherArray"/>
+<aura:component controller="LocationSearchController">
+    <aura:registerEvent name="hourlyRetrieverEvent" type="c:WeatherArray"/>
     <aura:attribute type="String" name="city" default="City"/>
     <aura:attribute type="String" name="state" default="State"/>
     <aura:attribute type="String" name="country" default="Country"/>

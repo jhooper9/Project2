@@ -1,3 +1,3 @@
 <aura:application extends="force:SLDS">
-    <c:TemperatureDisplay/>
+    <c:BigMomma/>
 </aura:application>
